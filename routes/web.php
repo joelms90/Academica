@@ -38,6 +38,10 @@ Route::get('user/{user}',  function (User $user)
  return view('show2', compact('user'));
 })->name('user.show');
 
+Route::get('/', function () {
+
+    return view('welcome');
+});
 
 Route::get('/sent', function () {
 

@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-
+<!-- 
                         <div class="form-group row  {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
                             <div class="col-md-9 offset-md-3">
                             {!! NoCaptcha::renderJs() !!}
@@ -63,7 +63,7 @@
                             </span>
                             @endif
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
