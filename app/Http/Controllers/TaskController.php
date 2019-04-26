@@ -15,7 +15,8 @@ class TaskController extends Controller
     }
       public function all()
     {
-        return Task::latest()->get();
+        $tasks= Task::with('users')->latest()->get();
+        return view('show')->with(compact('tasks'));
     }
 
         public function show($id)

@@ -1,11 +1,37 @@
-<h2>Nombre Tarea: </h2>
-<p>{{ $task->description }}</p>
-<p>{{ $task->status }}</p>
+@extends('layouts.app')
 
-<h3>Tarea Asiganada a:</h3>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
 
-<ul>
-    @foreach($task->users as $user)
-    <li>{{ $user->name }}</li>
-    @endforeach
-</ul>
+		  <table class="table table-striped">
+		  <thead class="text-center">
+		    <tr class="text-center">
+		      <th scope="col">Descripción</th>
+		      <th scope="col">Status</th>
+		      <th scope="col">Encargados</th>
+		    
+		    </tr>
+		  </thead>
+		  <tbody class="text-center">
+		  	@foreach($tasks as $task)
+		  	
+		    <tr class="text-center">
+		      <th scope="row">{{$task->description}}</th>
+		      <td>{{$task->status}}</td>
+		      <td>
+		      @foreach($task->users as $user)
+		      <a>{{$user->name}} Teléfono: {{$user->phone}} Correo:{{$user->email}}</a><br>
+		      @endforeach
+		      <td>
+		     
+		    
+		    </tr>
+		    @endforeach
+		
+		  </tbody>
+		</table>
+
+    </div>
+</div>
+@endsection

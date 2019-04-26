@@ -18,7 +18,7 @@ Route::get('task',  function ()
 $user = user::with('tasks')->where('id', '1')->first();
 return $user->tasks;
 
-})->name('tasks');
+})->name('tasks3');
 
 Route::get('send-task',  function ()
 {
@@ -38,6 +38,8 @@ Route::get('/', function () {
 
     return view('welcome');
 });
+
+Route::get('/tasks', 'TaskController@all')->name('tasks');
 
 Auth::routes();
 
