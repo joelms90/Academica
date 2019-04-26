@@ -55,7 +55,7 @@
                                 </a>
                             
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                     <a class="dropdown-item" href="{{ route('send-tasks') }}">
+                                     <a class="dropdown-item" href="{{ route('mail') }}">
                                        Enviar mis Tareas
                                     </a>
                                      <a class="dropdown-item" href="{{ route('tasks') }}">

@@ -13,6 +13,11 @@
 use App\User;
 use App\Task;
 
+Route::get('/sendemail','SendEmailController@index');
+
+Route::get('/sendemail/send','SendEmailController@send')->name('mail');
+
+
 Route::get('task',  function ()
 {
 $user = user::with('tasks')->where('id', '1')->first();
@@ -34,10 +39,12 @@ Route::get('user/{user}',  function (User $user)
 })->name('user.show');
 
 
-Route::get('/', function () {
+Route::get('/sent', function () {
 
-    return view('welcome');
-});
+    return view('sent');
+})->name('sent');
+
+Route::get('/tasks', 'TaskController@all')->name('tasks');
 
 Route::get('/tasks', 'TaskController@all')->name('tasks');
 
