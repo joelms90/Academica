@@ -13,10 +13,11 @@
 use App\User;
 use App\Task;
 
-Route::get('task/{task}',  function (Task $task)
+Route::get('task',  function ()
 {
+$user = user::with('tasks')->where('id', '1')->first();
+return $user->tasks;
 
- return view('show', compact('task'));
 })->name('task.show');
 
 Route::get('user/{user}',  function (User $user)
@@ -34,3 +35,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('current_tasks', 'TaskController@index');
+Route::get('archived_tasks', 'TaskController@archived');
+Route::post('create_task', 'TaskController@store');
+Route::post('delete_task/{id}', 'TaskController@destroy');
+Route::post('archive_task/{id}', 'TaskController@archive');
+Route::post('edit_task', 'TaskController@edit');

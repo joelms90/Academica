@@ -7,6 +7,9 @@ use App\User;
 
 class Task extends Model
 {
+
+	protected $guarded = [];
+
        public function users()
     {
     	return $this->belongsToMany(User::class);

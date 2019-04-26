@@ -4,82 +4,68 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+  public function index()
+    {  
+      return Task::latest()->get();
+    }
+      public function all()
     {
-        //
+        return Task::latest()->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+        public function show($id)
     {
-        //
+        return Task::findOrFail($id);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {
-        //
-    }
+    {   
+        $this->validate($request, [
+            'description' => 'required|max:500'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Task $task)
-    {
-        //
-    }
+        
+        $id=$request->get('user');
+        if ($id == NULL) {
+        $id=$request->get('id');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Task $task)
-    {
-        //
+        $task = Task::findOrFail($id);
+        $task->description=$request->get('description');
+        $task->save();
+          return $task;   # code...
+        }
+        $user = User::findOrFail($id);
+        $task=Task::create([ 'description' => request('description'), ]);
+        $task->users()->attach($user);
+        return $task;
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Task $task)
+    public function destroy($id)
     {
-        //
+        $task = Task::findOrFail($id);
+        $task->delete();
+        return 204;
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Task $task)
+     public function update(Request $request, $id)
     {
-        //
+       // $company = Company::findOrFail($id);
+       //  $company->update($request->all());
+
+       //  return $company;
+
+       $task = Task::findOrFail($id);
+       $status=$task->status;
+       if ($status=="Pendiente") {
+       $task->status="Concluida";
+       $task->save();
+       return 204;
+       }
+       $task->status="Pendiente";
+       $task->save();
+        return 204;
     }
 }
